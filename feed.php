@@ -12,30 +12,9 @@
 <body>
 	<?php
 	include 'db_connection.php';
+	include 'header.php';
 	?>
-	<header>
-		<img id="logo" src="images/logo_text.PNG" />
-		<div id="login">
-			<p>
-				Login
-			</p>
-			<p style="border-top: solid black 1px;">
-				Sign Up
-			</p>
-		</div>
 
-		<nav>
-			<ul>
-				<li>
-					Chats
-				</li>
-				<li>
-					Advice
-				</li>
-			</ul>
-
-		</nav>
-	</header>
 	<article class="main">
 		<div class="topbar">
 			<select id="sort">
@@ -59,27 +38,31 @@
 					$query = "SELECT title, num_ratings, avg_rating, date, author, num_comments FROM posts";
 					$result = $conn->query($query);
 					CloseCon($conn);
-
 					if ($result->num_rows > 0) {
 						// output data of each row
+						$i = 0;
 						while($row = $result->fetch_assoc()) {
 							echo '<li class="post">
 							<div class="titleRow">
 								<div class="title">
-									<a href="#">'.$row["title"].'</a>
+									<a href="./post.html">'.$row["title"].'</a>
 								</div>
 								<div class="stars"><img src="images/star4.png">
 								</div>
 							</div>
 							<div class="byRow">
 								<div class="byLine">
-									Posted By: <a href="#">'.$row["author"].'</a> on '.$row["date"].' | 0 comments
+								<form method="get" id="authorProfileLink'.$i.'" action="profile.php">
+								<input type="hidden" name="username" value="'.$row["author"].'">
+								</form>
+									Posted By: <a href="javascript:goToProfile(&quot;authorProfileLink'.$i.'&quot;)">'.$row["author"].'</a> on '.$row["date"].' | 0 comments
 								</div>
 								<div class="ratingNum">
-									'.$row["num_ratings"].'
+									'.$row["num_ratings"].' ratings
 								</div>
 							</div>
 						</li>';
+						$i++;
 						}
 					} else {
 						echo "0 results";
@@ -93,7 +76,11 @@
 			Page: <a href="#">&lt;Prev</a>1<a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">Next&gt;</a>
 		</div>
 	</article>
-
+	<script type="text/javascript">
+    function goToProfile(formId){
+		document.getElementById(formId).submit();
+   }
+    </script>
 </body>
 
 </html>
