@@ -1,0 +1,92 @@
+body {
+    height: 100vh;
+    width: 100%;
+}
+.holder{
+    position: relative;
+    left: 27.5em;
+    background-color: #161925;
+    padding: 5em;
+    padding-top: 2em;
+    width: 25em;
+    height: 100%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    background-color: #161925;
+    text-align: center;
+    color: white;
+}
+.holder h1 {
+    color: white;
+    font-size: xx-large;
+    
+}
+.holder input {
+    margin: 20px auto;
+    display: block;
+    text-align: center;
+}
+
+.holder input[type="text"],.holder input[type="file"] {
+    background: none;
+    border: 2px solid #237BA0;
+    border-radius: 1.5em;
+    padding: 1em;
+    color: white;
+    outline: none;
+}
+.holder input[type="text"]:focus, .holder input[type="file"]:focus{
+    border-color: violet;
+    width: 15em;
+}
+#image {
+    margin: 0em auto;
+    display: inline-block;
+}
+#image input {
+    padding-left: 7em;
+}
+select {
+    margin-top: 1em;
+    background: none;
+    border: 2px solid #237BA0;
+    border-radius: 1.5em;
+    padding: 1em;
+    color: white;
+    outline: none;
+}
+select:focus{
+    border-color: violet;
+    width: 15em;
+}
+textarea {
+    background: none;
+    border: 2px solid #237BA0;
+    border-radius: 1.5em;
+    padding: 1em;
+    color: white;
+    outline: none;
+}
+textarea:focus{
+    border-color: violet;
+    width: 100%;
+    height: 10em;
+}
+.holder input[type="submit"], .holder input[type="reset"]{
+    border: 2px solid #237BA0;
+    border-radius: 1.5em;
+    background: none;
+    color: white;
+    padding: 1em 3em;
+    outline: none;
+
+}
+.holder input[type="submit"]:focus, .holder input[type=reset]:focus{
+    border-color: violet;
+    background-color: lawngreen;
+    width: 15em;
+    cursor: pointer;
+}
+#buttons input{
+display: inline;
+}

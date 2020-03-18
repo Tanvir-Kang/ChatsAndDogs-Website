@@ -1,0 +1,93 @@
+#main{
+    height: 100%;
+    background-color: #5D737E;
+    margin: 2em;
+    padding-top: 2em;
+    padding-left: 4em;
+    padding-right: 2em;
+    border: 0.25em solid #161925;         
+}
+#heading {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1em;
+}
+#title {
+    font-size: xx-large;
+    float: left;   
+}
+
+.stars {
+    height: 2em;
+    width: 2em;
+}
+#starGroup{
+    float: right;
+
+}
+.stars:hover {
+    background-color: yellow;
+  }
+
+#metadata p{
+    display: inline;
+    padding: 5em;
+}
+#metadata p:first-child {
+    padding: 0em;
+}
+#postbody{
+    display: inline-block;
+    border: 0.125em solid black;
+    padding: 1em;
+}
+
+#postImage{
+    height: 13em;
+    width: 15em;
+    float: left;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
+#commentSection {
+    padding: 2em;
+}
+#commentSection h2{
+    margin-bottom: 1.5em;
+    font-size: x-large;
+    border-bottom: 1pt solid black;
+}
+.comment {
+    color: darkgrey;
+    border-left: 1pt solid darkgray;
+    padding-left: 0.125em;
+}
+
+.subComment{
+    margin-left: 1em;
+    margin-top: 0.250em;
+    padding-left: 0.125em;
+    color: darkgrey;
+    border-left: 1pt solid darkgray;
+}
+.commentInfo p {
+    display: inline-block;
+    color: darkslateblue;
+    font-size: smaller;
+}
+.commentInfo{
+    border-left: 1pt solid darkgray;
+    padding-left: 0.125em;
+
+}
+.reply .commentInfo{
+    margin-left: 1em;
+}
+#star2 .stars{
+    height: 1em;
+    width: 1em;
+}
+#star3 .stars {
+    height: 1em;
+    width: 1em;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create a Post</title>
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/templateStyling.css">
+        <link rel="stylesheet" href="css/createApost.css">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <img id="logo" src="images/logo_text.PNG"/>            
+            <nav>
+                <ul>
+                    <li>Home</li>
+                    <li>Back</li>
+                </ul>
+            </nav>
+        </header>
+
+        <div id="main">
+            <form method="POST" action="createAPost.php" class="holder">
+                <h1>Create a post</h1>
+                <div id="chats">
+                <label>Chat:</label>
+                <select name="chat" >
+                    <option selected>Dogs</option>
+                    <option>Cats</option>
+                    <option>Subarus</option>
+                    <option>Off-topic</option>
+                </select>
+                </div>
+                <input type="text" required name="title" placeholder="Enter title">
+                <textarea required name="description" rows="3" cols="50" placeholder="Enter post description"></textarea>
+                <input type="text" name="link" placeholder="(optional) Enter a link">
+                <div id="image">
+                    <label>(Optional, upload an image)</label>
+                    <input type="file" id="img" name="img" accept="image/*">
+                </div> 
+                <div id="buttons">
+                    <input type="submit" value="Submit Post">
+                    <input type="reset" value="clear all">  
+                </div>
+            </form>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,289 @@
+.main {
+	background-color: white;
+	margin: 2em 10em;
+	width: 75%;
+	height: 90em;
+	border-radius: 10px;
+}
+#ppicture {
+	border-radius: 50%;
+	width: 70%;
+	margin-bottom: 2em;
+	border: solid black 0.5em;
+}
+#info {
+	float: left;
+	width: 30%;
+	margin-left: 2em;
+	height: 100%;
+	padding-top: 2em;
+}
+b {
+	font-weight: bold;
+}
+.attribute {
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+h1 {
+	font-size: 4em;
+	font-weight: bold;
+}
+h2 {
+	font-size: 2em;
+	font-weight: bold;
+}
+#content {
+	padding-top: 2em;
+	margin-left: 22em;
+	margin-right: 15em;
+}
+#editPane {
+	padding-top: 2em;
+	margin-right: 2em;
+	float: right;
+	width: 20%;
+	text-align: center;
+}
+#edit {
+	background-color: #61AEF0;
+	padding: 1em 1.5em;
+	border-color: black;
+	font-weight: bold;
+}
+.comments, .posts {
+	overflow-y: scroll;
+	overflow-x: auto;
+	height: 20em;
+	margin: 0.5em 1em 2em;
+	background-color: #C6D4FF;
+	border: solid #61AEF0;
+	border-radius: 5px;
+}
+.commentItem, .postItem {
+	display: table;
+	border-bottom: 2px solid gray;
+	width: 100%;
+}
+.commentItem a, .commentStars, .postItem a, .postStars {
+	display: table-cell;
+	vertical-align: middle;
+	padding: 0.5em 0.3em;
+}
+.commentItem a, .postItem a {
+	width: 100%;
+}
+.commentItem a, .commentItem a:link, .commentItem a:visited, .postItem a, .postItem a:link, .postItem a:visited, .title a, .title a:link, .title a:visited {
+	color: black;
+	text-decoration: none;
+}
+.commentItem a:hover, .postItem a:hover {
+	background-color: #61AEF0;
+}
+.commentText, .postText {
+	font-size: 1.2em;
+}
+.commentStars, .postStars {
+	float: right;
+}
+.commentItem img, .postItem img {
+	height: 1.3em;
+}
+#sort {
+	border: 0;
+	height: 100%;
+	width: 10em;
+	font-size: large;
+	text-align: center;
+	float: left;
+}
+.topbar {
+	border-bottom: 1px solid black;
+	height: 2em;
+}
+#pHeading {
+	padding-bottom: 1em;
+}
+.cpHeading {
+	margin-left: 0.9em;
+	border-bottom: 0.08em solid #61AEF0;
+}
+.feedPort {
+	height: 90%;
+	margin: 0.5em 1em 0.2em;
+	background-color: #C6D4FF;
+	border: solid #61AEF0;
+	border-radius: 5px;
+	overflow: hidden;
+}
+.post {
+	display: table;
+	border-bottom: 2px solid gray;
+	padding: 0.5em 0.3em;
+}
+.titleRow, .byRow {
+	display: table-row;
+}
+.title, .stars, .byLine, .ratingNum {
+	display: table-cell;
+	vertical-align: middle;
+	height: 100%;
+}
+.stars img {
+	height: 1.4em;
+}
+.stars, .ratingNum {
+	float: right;
+}
+.title, .byLine {
+	width: 100%;
+}
+.byLine, .ratingNum {
+	font-size: small;
+	color: #808080;
+}
+.byLine a, .byline a:hover, .byline a:visited, .byline a:link {
+	text-decoration: none;
+	color: #808080
+}
+.byLine a:hover {
+	text-decoration: underline;
+}
+.title {
+	font-size: larger;
+}
+.pageSelect {
+	float: right;
+	color: #808080;
+	margin-right: 2em;
+}
+.pageSelect a {
+	padding-left: 0.2em;
+	padding-right: 0.2em;
+}
+#feedHeader {
+	text-align: center;
+	margin-right: 10em;
+	margin-left: 10em;
+}
+.createPost {
+	background-color: #61AEF0;
+	float: right;
+	width: 15%;
+	border: 1px solid black;
+	text-align: center;
+	padding: 0.44em;
+}
+.createPost:hover {
+	background-color: #60adcd;
+}
+.topbar a {
+	color: black;
+}
+.search {
+	float: right;
+	height: 100%;
+	position: relative;
+	width: 20%;
+	padding-left: 2em;
+}
+.search img {
+	height: 80%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 14.5em;
+	margin: auto;
+}
+.search input {
+	height: 80%;
+	width: 95%;
+	background-color: #c6d4ff;
+}
+.adminTitle {
+	text-align: center;
+	padding-top: 1em;
+	margin-bottom:1em;
+}
+.userPort {
+	overflow-y:scroll;
+	height: 40%;
+	margin: 0.5em 1em 0.2em;
+	background-color: #C6D4FF;
+	border: solid #61AEF0;
+	border-radius: 5px;
+	overflow-x: hidden;
+}
+.user {
+	display: table;
+	width: 20%;
+}
+.userEntry {
+	width: 100%;
+	border-bottom: 2px solid gray;
+	padding: 0.5em 0.3em;
+}
+.userRow, .imgRow {
+	display: table-row;
+}
+.userRowGroup {
+	display: table-row-group;
+}
+.details, .adminPostDetails {
+	display: table-caption;
+	caption-side: right;
+	width: 40em;
+}
+.disableUser, .disablePost {
+	float: right;
+}
+.username, .avatar {
+	display: table-cell;
+	vertical-align: middle;
+}
+.username a, .username a:link, .username a:visited {
+	color: black;
+	text-decoration: none;
+}
+.username {
+	font-size: larger;
+}
+.avatar img {
+	height: inherit;
+}
+.avatar {
+	height: 4em;
+}
+.avatar, .username {
+	width: 17%;
+}
+.userWindow, .postWindow {
+	margin-right: 0.9em;
+	margin-left: 0.9em;
+	border-bottom: 0.08em solid #61AEF0;
+}
+.userSearch {
+	float:right;
+}
+.userSearch input {
+	position:relative;
+	bottom: 0.2em;
+	width:14em;
+}
+.adminPost {
+	display: table;
+	margin-right: 2em;
+}
+.disablePost a {
+	margin-right:2em;
+}
+.adminPostDetails {
+	width: 30em;
+}
+.postWindow {
+	margin-top:2em;
+}
+.disablePost img {
+	height: 1.5em;
+}
