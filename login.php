@@ -17,8 +17,7 @@
     if(isset($_POST['username'])){
        $username = $_POST['username'];
        $password = $_POST['password'];
-        echo $username;
-        echo $password;
+       
         $query = "SELECT * FROM users WHERE username='".$username."'AND password='".$password."' limit 1";
       
         $result = $conn->query($query);
@@ -30,7 +29,9 @@
             exit();
         }
         else {
-            echo "Username or password does not match";
+            $message = "Username or password does not match";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            
             echo "<script> window.location.assign('login.php'); </script>";
             exit();
         }
