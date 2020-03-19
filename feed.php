@@ -7,6 +7,12 @@
 	<link rel="stylesheet" href="css/templateStyling.css">
 	<link rel="stylesheet" href="css/styles.css">
 	<meta name="viewport" content="width=device-width; initial-scale=1.0">
+	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/feed.js"></script>
+	<script type="text/javascript">
+        window.jQuery ||
+            document.write('<script src="js/jquery-3.1.1.min.js"><\/script>');
+    </script>
 </head>
 
 <body>
@@ -27,7 +33,7 @@
 			<a href="#">
 				<div class="createPost">Create Post</div>
 			</a>
-			<div class="search"><img src="images/search.png"><input type="text" placeholder="Search" /></div>
+			<div class="search"><img src="images/search.png"><input type="text" placeholder="Search" id="search" onkeyup="search()" /></div>
 			<h2 id="feedHeader">Feed</h2>
 
 		</div>
@@ -76,11 +82,6 @@
 			Page: <a href="#">&lt;Prev</a>1<a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">Next&gt;</a>
 		</div>
 	</article>
-	<script type="text/javascript">
-    function goToProfile(formId){
-		document.getElementById(formId).submit();
-   }
-    </script>
 </body>
 
 </html>

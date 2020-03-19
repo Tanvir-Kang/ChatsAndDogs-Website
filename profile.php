@@ -77,80 +77,27 @@
 			<h2 class="cpHeading">My Comments</h2>
 			<div class="comments">
 				<ul class="commentLog">
-					<li class="commentItem">
-						<a href="#">
-							<p class="commentText">
-								Lorem Ipsum Dolor Sit Amet Consecte...
-							</p>
-						</a><img src="images/star2.png" class="commentStars">
-					</li>
-					<li class="commentItem">
-						<a href="#">
-							<p class="commentText">
-								Lorem Ipsum Dolor Sit Amet
-							</p>
-						</a><img src="images/star4.png" class="commentStars">
-					</li>
-					<li class="commentItem">
-						<a href="#">
-							<p class="commentText">
-								Lorem Ipsum Dolor Sit
-							</p>
-						</a><img src="images/star0.png" class="commentStars">
-					</li>
-					<li class="commentItem">
-						<a href="#">
-							<p class="commentText">
-								Lorem Ipsum Dolor Sit Amet Consecte...
-							</p>
-						</a><img src="images/star5.png" class="commentStars">
-					</li>
-					<li class="commentItem">
-						<a href="#">
-							<p class="commentText">
-								Lorem Ipsum Dolor
-							</p>
-						</a><img src="images/star3.png" class="commentStars">
-					</li>
-					<li class="commentItem">
-						<a href="#">
-							<p class="commentText">
-								Lorem Ipsum Dolor Sit Amet Consecte...
-							</p>
-						</a><img src="images/star2.png" class="commentStars">
-					</li>
-					<li class="commentItem">
-						<a href="#">
-							<p class="commentText">
-								Lorem Ipsum Dolor Sit Amet
-							</p>
-						</a><img src="images/star4.png" class="commentStars">
-					</li>
-					<li class="commentItem">
-						<a href="#">
-							<p class="commentText">
-								Lorem Ipsum Dolor Sit
-							</p>
-						</a><img src="images/star0.png" class="commentStars">
-					</li>
-					<li class="commentItem">
-						<a href="#">
-							<p class="commentText">
-								Lorem Ipsum Dolor Sit Amet Consecte...
-							</p>
-						</a><img src="images/star5.png" class="commentStars">
-					</li>
-					<li class="commentItem">
-						<a href="#">
-							<p class="commentText">
-								Lorem Ipsum Dolor
-							</p>
-						</a><img src="images/star3.png" class="commentStars">
-					</li>
+					<?php
+					$query = 'SELECT content FROM comments WHERE author = "' . $username . '"';
+					$result = $conn->query($query);
+					if ($result->num_rows > 0) {
+						// output data of each row
+						while ($row = $result->fetch_assoc()) {
+							$content = substr($row["content"], 0, 36);
+							if (strlen($row["content"]) > 33)
+								$content = $content . "...";
+							echo '<li class="commentItem">
+							<a href="#"><p class="commentText">' . $content . '
+							</p></a><img src="images/star2.png" class="postStars">
+							</li>';
+						}
+					} else {
+						echo "0 results";
+					}
+					?>
 				</ul>
 			</div>
 			<h2 class="cpHeading">My Posts</h2>
-
 			<div class="posts">
 				<ul class="postLog">
 					<?php
@@ -160,13 +107,16 @@
 					if ($result->num_rows > 0) {
 						// output data of each row
 						while ($row = $result->fetch_assoc()) {
+							$title = substr($row["title"], 0, 36);
+							if (strlen($row["title"]) > 33)
+								$title = $title . "...";
 							echo '<li class="postItem">
-							<a href="#"><p class="postText">' .$row["title"]. '
+							<a href="#"><p class="postText">' . $title . '
 							</p></a><img src="images/star2.png" class="postStars">
 							</li>';
 						}
 					} else {
-						echo "0 results";
+						echo "<h2>0 results<h2>"; // TODO: Make this look nicer
 					}
 					?>
 				</ul>
