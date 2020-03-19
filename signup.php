@@ -13,13 +13,17 @@
     include 'header.php';
     $conn = OpenCon();
     if(isset($_POST['submit'])){
-        $name = $_POST['name'];
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
         $username = $_POST['userName'];
         $email = $_POST['email'];
         $password = $_POST['password'];
         $birthday = $_POST['birthdate'];
         $gender = $_POST['gender'];
        
+        $todays_date = date("Y-m-d");
+        $diffrence = date_diff(date_create($birthday),date_create($todays_date));
+        $age = $diffrence->format('%y');
         $file = $_FILES['pic'];
        
         $file_Name=$_FILES['pic']['name'];
@@ -39,7 +43,7 @@
                     $file_New_Name = uniqid('',true).".".$fileActualExt;
                     $fileDestination = 'images/profile_pictures/'.$file_New_Name;
                     move_uploaded_file($file_Temp_Name,$fileDestination);
-                    $query = "INSERT into users(username, first_name, age, sex, email, profile_pic_path, password) VALUES ('$username','$name','10','$gender','$email','$fileDestination','$password')";
+                    $query = "INSERT into users(username, first_name, last_name, age, sex, email, profile_pic_path, password) VALUES ('$username','$firstName','$lastName','$age','$gender','$email','$fileDestination','$password')";
                     if($conn->query($query)){
                     echo '<script>alert("success..Press okay to continue")</script>';
                     }
@@ -64,7 +68,8 @@
    
         <form method="POST" class="holder" enctype="multipart/form-data">
             <h1>Sign Up</h1>
-            <input type="text" required name="name" placeholder="First and last name">
+            <input type="text" required name="firstName" placeholder="First name">
+            <input type="text" required name="lastName" placeholder="Last name">
             <input type="text" required name="userName" placeholder="Username" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$">
             <input type="email" required name="email" placeholder="Email">
             <input type="password" required name="password" placeholder="Pick a password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
