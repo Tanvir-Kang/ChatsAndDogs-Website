@@ -30,7 +30,7 @@
 				<option value="mostRatings">Most-Ratings</option>
 				<option value="hot">Hot</option>
 			</select>
-			<a href="#">
+			<a href="createApost.html">
 				<div class="createPost">Create Post</div>
 			</a>
 			<div class="search"><img src="images/search.png"><input type="text" placeholder="Search" id="search" onkeyup="search()" /></div>
