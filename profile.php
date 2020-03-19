@@ -12,7 +12,7 @@
 <body>
 	<?php
 	include 'db_connection.php';
-	include("header.php");
+	include 'header.php';
 	$username = $_GET["username"];
 	$conn = OpenCon();
 	$query = 'SELECT first_name, last_name, age, sex, email, num_posts, num_comments, num_pets FROM users WHERE username = "' . $username . '"';
