@@ -16,3 +16,8 @@ function search(method) { // Search function for feed posts
 
     };
 }
+
+function sort() {
+    var selection = $("#sort").children("option:selected").val().toLowerCase();
+    $("#" + selection).submit();
+}
