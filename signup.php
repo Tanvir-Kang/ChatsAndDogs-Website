@@ -37,17 +37,24 @@
 
         $allowed = array('jpg','jpeg','png');
 
+        $query = "SELECT * FROM users WHERE username='".$username."'";
+        $result = $conn->query($query);
+        if (empty($result) && $result->num_rows == 0) {
         if (in_array($fileActualExt, $allowed)){
             if($file_Error===0){
                 if ($file_Size < 10000000){
                     $file_New_Name = uniqid('',true).".".$fileActualExt;
                     $fileDestination = 'images/profile_pictures/'.$file_New_Name;
                     move_uploaded_file($file_Temp_Name,$fileDestination);
-                    $query = "INSERT into users(username, first_name, last_name, age, sex, email, profile_pic_path, password) VALUES ('$username','$firstName','$lastName','$age','$gender','$email','$fileDestination','$password')";
+                    $query = "INSERT into users(username, first_name, last_name, age, sex, email, profile_image_path, password) VALUES ('$username','$firstName','$lastName','$age','$gender','$email','$fileDestination','$password')";
                     if($conn->query($query)){
                     echo '<script>alert("success..Press okay to continue")</script>';
-                    }
                     header("Location: login.php?uploadsuccess");
+                    }
+                    else {
+                        echo ("Error: " .$conn->error);
+                    }
+                    
                 }
                 else {
                     echo "<script type='text/javascript'>alert('File size too large');</script>";
@@ -58,12 +65,39 @@
             }
         }
         else {
+            if ($gender=='Male'){
+            $defaultImage = 'images/profile_picture/img_avatar.png';
+            $query = "INSERT into users(username, first_name, last_name, age, sex, email, profile_image_path, password) VALUES ('$username','$firstName','$lastName','$age','$gender','$email','$defaultImage','$password')";
+            if($conn->query($query)){
+                echo "<script type='text/javascript'>alert('success..Press okay to continue');</script>";
+                header("Location: login.php?uploadsuccess");
+                }
+                else {
+                    echo ("Error: " .$conn->error);
+                }  
+                exit(); 
+        }
+            else {
+            $defaultImage = 'images/profile_picture/img_avatarf.png';
+            $query = "INSERT into users(username, first_name, last_name, age, sex, email, profile_image_path, password) VALUES ('$username','$firstName','$lastName','$age','$gender','$email','$defaultImage','$password')";
+            if($conn->query($query)){
+                echo "<script type='text/javascript'>alert('success..Press okay to continue');</script>";
+                header("Location: login.php?uploadsuccess");
+                }
+                else {
+                    echo ("Error: " .$conn->error);
+                }
+                exit(); 
+            }
             echo "<script type='text/javascript'>alert('You may only upload jpg,jpeg, or png');</script>";
         }
-
+        }
+        else {
+            echo "<script type='text/javascript'>alert('Sorry, this username is taken');</script>";
+        }
         
     }
-      
+    CloseCon($conn);
     ?>
    
         <form method="POST" class="holder" enctype="multipart/form-data">
@@ -72,6 +106,7 @@
             <input type="text" required name="lastName" placeholder="Last name">
             <input type="text" required name="userName" placeholder="Username" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$">
             <input type="email" required name="email" placeholder="Email">
+            <label>Password must contain a number, letters and a special character</label>
             <input type="password" required name="password" placeholder="Pick a password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
             <label>Enter your birthdate:</label><input required type="date" name="birthdate">
             <div id="gender">
@@ -84,7 +119,7 @@
                 </select>
             </div>
             <div id="image">
-                <label>Select a profile picture:</label>
+                <label>Select a profile picture (optional) :</label>
                 <input type="file" id="img" name="pic" accept="image/*">
             </div>
             <div id="buttons">
