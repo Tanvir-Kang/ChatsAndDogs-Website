@@ -51,7 +51,7 @@
 			<a href="createApost.html">
 				<div class="createPost">Create Post</div>
 			</a>
-			<div class="search"><img src="images/search.png"><input type="text" placeholder="Search" id="search" onkeyup="search( &quot;feed&quot;)" /></div>
+			<div class="search"><img src="images/search.png"><input type="text" placeholder="Search" id="search" onkeyup="javascript:search()" /></div>
 			<h2 id="feedHeader">Feed</h2>
 
 		</div>
