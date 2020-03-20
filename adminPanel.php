@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="css/templateStyling.css">
 	<link rel="stylesheet" href="css/styles.css">
 	<meta name="viewport" content="width=device-width; initial-scale=1.0">
+	<script type="text/javascript" src="js/adminPanel.js"></script>
 </head>
 
 <body>
@@ -16,7 +17,7 @@
 	?>
 	<article class="main">
 		<h2 class="adminTitle">Admin Panel</h2>
-		<h2 class="userWindow">Users<span class="userSearch">Search: <input type="text" placeholder="Name, Email or Post Title" </span> </h2> <div class="userPort">
+		<h2 class="userWindow">Users<span class="userSearch">Search: <input type="text" placeholder="Name, Username or Email" id="userSearch" onkeyup="javascript:search(&quot;users&quot;)"> </span> </h2> <div class="userPort">
 				<ul class="userList">
 					<?php
 					$conn = OpenCon();
@@ -39,9 +40,9 @@
 										<a href="#">Disable</a>
 									</div>
 	
-									<b>Name:</b> ' . $name . '
+									<b>Name:</b> <span class = "searchTerm">' . $name . '</span>
 									<br>
-									<b>Email:</b> ' . $email . '
+									<b>Email:</b> <span class = "searchTerm">' . $email . '</span>
 									<br>
 									<b>Age:</b> ' . $age . '
 									<br>
@@ -53,7 +54,7 @@
 								<div class="userRowGroup">
 									<div class="userRow">
 										<div class="username">
-											<a href="#">' . $username . '</a>
+											<a href="#"><span class = "searchTerm">' . $username . '</span></a>
 										</div>
 									</div>
 									<div class="imgRow">
@@ -71,7 +72,7 @@
 					?>
 				</ul>
 				</div>
-				<h2 class="postWindow">Posts<span class="userSearch">Search: <input type="text" placeholder="Author or Post Title" </span> </h2> <div class="userPort">
+				<h2 class="postWindow">Posts<span class="userSearch">Search: <input type="text" placeholder="Author(Username) or Post Title" id="postSearch" onkeyup="javascript:search(&quot;posts&quot;)"> </span> </h2> <div class="userPort">
 						<ul class="userList">
 							<?php
 							$query = "SELECT title, num_ratings, avg_rating, date, author, num_comments FROM posts";
@@ -80,7 +81,7 @@
 							if ($result->num_rows > 0) {
 								// output data of each row
 								while ($row = $result->fetch_assoc()) {
-									echo '							<div class="userEntry">
+									echo '							<div class="postEntry">
 									<li class="adminPost">
 										<div class="adminPostDetails">
 											<div class="disablePost">
@@ -89,7 +90,7 @@
 												<br>
 												<a href="#">Remove</a>
 												<a href="#">Edit</a>
-											</div> <b>Posted By:</b> '.$row["author"].'
+											</div> <b>Posted By:</b> <span class ="searchTerm">'.$row["author"].'</span>
 											<br>
 											<b>Date:</b> '.$row["date"].'
 											<br>
@@ -100,7 +101,7 @@
 										<div class="userRowGroup">
 											<div class="userRow">
 												<div class="username">
-													<a href="#">'.$row["title"].'</a>
+													<a href="#"><span class = "searchTerm">'.$row["title"].'</span></a>
 												</div>
 											</div>
 										</div>

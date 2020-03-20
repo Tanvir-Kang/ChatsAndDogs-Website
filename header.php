@@ -6,7 +6,7 @@
 				Login
 			</p>
 		</a>
-		<a href="signup.html">
+		<a href="signup.php">
 			<p style="border-top: solid black 1px;">
 				Sign Up
 			</p>
