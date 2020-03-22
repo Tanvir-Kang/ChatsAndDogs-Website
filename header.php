@@ -1,5 +1,5 @@
 <header>
-	<img id="logo" src="images/logo_text.PNG" />
+	<a href="feed.php"><img id="logo" src="images/logo_text.PNG" /></a>
 	<div id="login">
 		<a href="login.php">
 			<p>
@@ -14,13 +14,17 @@
 	</div>
 
 	<nav>
-		<ul class = "navbar">
-			<a href = "feed.php"><li>
-				Chats
-			</li></a>
-			<a href = "feed.php"><li>
-				Advice
-			</li></a>
+		<ul class="navbar">
+			<a href="feed.php">
+				<li>
+					Chats
+				</li>
+			</a>
+			<a href="feed.php">
+				<li>
+					Advice
+				</li>
+			</a>
 		</ul>
 
 	</nav>

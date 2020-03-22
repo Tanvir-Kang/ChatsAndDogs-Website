@@ -319,6 +319,7 @@ h2 {
 .disableUser,
 .disablePost {
     float: right;
+    width: 33%;
 }
 
 .username,
@@ -387,4 +388,8 @@ h2 {
 
 .disablePost img {
     height: 1.5em;
+}
+
+.warn {
+    color: red;
 }

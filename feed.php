@@ -34,18 +34,18 @@
 		<input type="hidden" name="orderBy" value="most-ratings">
 	</form>
 	<?php
-				if(!isset($_GET["orderBy"])) // Check if sorting method has been selected
-					$sortMethod = "top-rated"; // Default to toprated
-				else
-					$sortMethod = $_GET["orderBy"]; // Otherwise get value
+	if (!isset($_GET["orderBy"])) // Check if sorting method has been selected
+		$sortMethod = "top-rated"; // Default to toprated
+	else
+		$sortMethod = $_GET["orderBy"]; // Otherwise get value
 	?>
 	<article class="main">
 		<div class="topbar">
 			<select id="sort" onchange="javascript:sort()">
-				<option value="topRated" <?php if($sortMethod == "top-rated") echo 'selected'; ?>>Top-Rated</option>
-				<option value="newest" <?php if($sortMethod == "newest") echo 'selected'; ?>>Newest</option>
-				<option value="oldest" <?php if($sortMethod == "oldest") echo 'selected'; ?>>Oldest</option>
-				<option value="mostRatings" <?php if($sortMethod == "most-ratings") echo 'selected'; ?>>Most-Ratings</option>
+				<option value="topRated" <?php if ($sortMethod == "top-rated") echo 'selected'; ?>>Top-Rated</option>
+				<option value="newest" <?php if ($sortMethod == "newest") echo 'selected'; ?>>Newest</option>
+				<option value="oldest" <?php if ($sortMethod == "oldest") echo 'selected'; ?>>Oldest</option>
+				<option value="mostRatings" <?php if ($sortMethod == "most-ratings") echo 'selected'; ?>>Most-Ratings</option>
 				<option value="hot">Hot</option>
 			</select>
 			<a href="createApost.html">
@@ -61,33 +61,57 @@
 				$conn = OpenCon();
 				$clause = "ORDER BY avg_rating"; // Default
 				//Switch for setting order by clause for sql query
-				switch ($sortMethod){
+				$path = "";
+				switch ($sortMethod) {
 					case "top-rated":
-						$clause = "ORDER BY avg_rating";
-					break;
+						$clause = "ORDER BY posts.avg_rating DESC";
+						break;
 					case "newest":
-						$clause = "ORDER BY date DESC";
-					break;
+						$clause = "ORDER BY posts.date DESC";
+						break;
 					case "oldest":
-						$clause = "ORDER BY date";
-					break;
-					case "most-rated":
-						$clause = "ORDER BY num_ratings";
-					break;
+						$clause = "ORDER BY posts.date";
+						break;
+					case "most-ratings":
+						$clause = "ORDER BY posts.num_ratings DESC";
+						break;
 				}
-				$query = "SELECT title, num_ratings, avg_rating, date, author, num_comments FROM posts ".$clause;
+				$query = "SELECT title, posts.num_ratings, posts.avg_rating, posts.date, posts.author, COUNT(comments.comment_id) as num_comments FROM posts LEFT OUTER JOIN comments ON posts.post_id = comments.post_id GROUP BY posts.post_id " . $clause;
 				$result = $conn->query($query);
 				CloseCon($conn);
 				if ($result->num_rows > 0) {
 					// output data of each row
 					$i = 0;
 					while ($row = $result->fetch_assoc()) {
+						switch ($row["avg_rating"]) {
+							case 0:
+								$path = "images/star0.png";
+								break;
+							case 1:
+								$path = "images/star1.png";
+								break;
+							case 2:
+								$path = "images/star2.png";
+								break;
+							case 3:
+								$path = "images/star3.png";
+								break;
+							case 4:
+								$path = "images/star4.png";
+								break;
+							case 5:
+								$path = "images/star5.png";
+								break;
+							default:
+								$path = "images/star5.png";
+						}
+
 						echo '<li class="post">
 							<div class="titleRow">
 								<div class="title">
 									<a href="./post.html">' . $row["title"] . '</a>
 								</div>
-								<div class="stars"><img src="images/star4.png">
+								<div class="stars"><img src="'.$path.'">
 								</div>
 							</div>
 							<div class="byRow">
@@ -95,7 +119,7 @@
 								<form method="get" id="authorProfileLink' . $i . '" action="profile.php">
 								<input type="hidden" name="username" value="' . $row["author"] . '">
 								</form>
-									Posted By: <a href="javascript:goToProfile(&quot;authorProfileLink' . $i . '&quot;)">' . $row["author"] . '</a> on ' . $row["date"] . ' | 0 comments
+									Posted By: <a href="javascript:goToProfile(&quot;authorProfileLink' . $i . '&quot;)">' . $row["author"] . '</a> on ' . $row["date"] . ' | ' . $row["num_comments"] . ' comments
 								</div>
 								<div class="ratingNum">
 									' . $row["num_ratings"] . ' ratings

@@ -13,9 +13,12 @@
 	<?php
 	include 'db_connection.php';
 	include 'header.php';
-	$username = $_GET["username"];
+	if(!isset($_GET["username"])) // Check if user navigated through clicking a username
+		true;// TODO: $username =  Default to their own username (if logged in)
+	else
+		$username = $_GET["username"]; // Otherwise get username
 	$conn = OpenCon();
-	$query = 'SELECT first_name, last_name, age, sex, email, num_posts, num_comments, num_pets FROM users WHERE username = "' . $username . '"';
+	$query = 'SELECT first_name, last_name, age, sex, email, num_posts, COUNT(comment_id) as num_comments, num_pets, profile_image_path FROM users, comments WHERE username = "' . $username . '" AND author = "'.$username.'"';
 	$result = $conn->query($query);
 	if ($result->num_rows > 0) {
 		// output data of each row
@@ -30,6 +33,7 @@
 			$num_posts = $row["num_posts"];
 			$num_comments = $row["num_comments"];
 			$num_pets = $row["num_pets"];
+			$image_path = $row["profile_image_path"];
 		}
 	} else {
 		echo "0 results";
@@ -37,7 +41,7 @@
 	?>
 	<article class="main">
 		<div id="info">
-			<img id="ppicture" src="images/img_avatar.png" alt="Profile Pciture">
+			<img id="ppicture" src="<?php echo $image_path;?>" alt="Profile Picture">
 			<br>
 			<p class="attribute">
 				<b>Name:</b> <?php echo $name; ?>

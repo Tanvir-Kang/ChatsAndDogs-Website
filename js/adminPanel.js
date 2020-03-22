@@ -18,3 +18,21 @@ function search(method) { // Search function for adminpanel
             $(this).hide(); // Hide non-matching elements
     })
 }
+
+function conf(caller, id) {
+    var element = $(caller);
+    var title = element.parent().parent().next().find(".searchTerm").text();
+    var del = confirm("Are you sure you would you like to delete \"" + title + "\"?");
+    if (del == true) {
+        $.post("adminPanel.php", {
+                postId: id,
+            },
+            function(content, status) {
+                if (status == "success") {
+                    alert("Success!");
+                    element.parent().parent().parent().parent().hide();
+                } else
+                    alert("Failed. Sorry.");
+            });
+    }
+}
