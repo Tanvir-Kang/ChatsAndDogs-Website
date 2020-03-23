@@ -23,6 +23,15 @@
 		$conn->query($query);
 		CloseCon($conn);
 	}
+
+	// User disabling/enabling
+	if (isset($_POST["username"])) { // Check if user was selected for disabling/enabling
+		$user = $_POST["username"];
+		$conn = OpenCon();
+		$query = 'UPDATE users SET enabled = !enabled WHERE username = "' . $user . '"';
+		$conn->query($query);
+		CloseCon($conn);
+	}
 	?>
 	<article class="main">
 		<h2 class="adminTitle">Admin Panel</h2>
@@ -31,7 +40,7 @@
 			<ul class="userList">
 				<?php
 				$conn = OpenCon();
-				$query = 'SELECT username, profile_image_path, first_name, last_name, age, email, num_posts, COUNT(comments.comment_id) as num_comments, num_pets FROM users LEFT OUTER JOIN comments ON users.username = comments.author GROUP BY username';
+				$query = 'SELECT username, profile_image_path, first_name, last_name, age, email, num_posts, enabled, COUNT(comments.comment_id) as num_comments, num_pets FROM users LEFT OUTER JOIN comments ON users.username = comments.author GROUP BY username';
 				$result = $conn->query($query);
 				if ($result->num_rows > 0) {
 					// output data of each row
@@ -44,11 +53,14 @@
 						$num_comments = $row["num_comments"];
 						$num_pets = $row["num_pets"];
 						$image_path = $row["profile_image_path"];
+						$toggle = "Enable";
+						if($row["enabled"] == 1)
+							$toggle = "Disable";
 						echo '					<div class="userEntry">
 							<li class="user">
 								<div class="details">
 									<div class="disableUser">
-										<a href="#">Disable</a>
+										<a href = "javascript:;" onclick = "javascript:conf(this, &quot;' . $username . '&quot;);">'.$toggle.'</a>
 									</div>
 	
 									<b>Name:</b> <span class = "searchTerm">' . $name . '</span>
@@ -115,12 +127,12 @@
 								break;
 							default:
 								$path = "images/star0.png";
-												}
+						}
 						echo '							<div class="postEntry">
 									<li class="adminPost">
 										<div class="adminPostDetails">
 											<div class="disablePost">
-												<img src="'.$path.'">
+												<img src="' . $path . '">
 												<br>
 												<br>
 												<a href = "javascript:;" onclick = "javascript:conf(this, &quot;' . $row["post_id"] . '&quot;);">Remove</a>
