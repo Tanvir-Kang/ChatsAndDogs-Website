@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,10 +19,12 @@
         $topic = $_POST['chat'];
         $todays_date = date("Y-m-d");
         $author = $_SESSION['username'];
-        $defaultPhoto = TRUE;
-        $file = $_FILES['pic'];
-        $fileDestination = '';
-        if ( ! empty($_FILES)) {
+        $file = $_FILES['pic']['tmp_name'];
+        $fileDestination = NULL;
+        $content = $description." ".$link;
+
+        if (is_uploaded_file($file) ) {
+            
         $allowed = array('jpg','jpeg','png');
         $file_Name=$_FILES['pic']['name'];
         $file_Temp_Name=$_FILES['pic']['tmp_name'];
@@ -39,7 +40,6 @@
                     $file_New_Name = uniqid('',true).".".$fileActualExt;
                     $fileDestination = 'images/post_pictures/'.$file_New_Name;
                     move_uploaded_file($file_Temp_Name,$fileDestination);
-                    $defaultPhoto = FALSE;
                 }
                 else {
                     echo "<script type='text/javascript'>alert('File size too large');</script>";
@@ -51,13 +51,26 @@
             echo "<script type='text/javascript'>alert('Error uploaded picture, must be a jpg, jpeg, or png');</script>";
         }
         }
-        
-        echo $postTitle;
-        echo $description;
-        echo $link;
-        echo $topic;
-        echo $todays_date;
-        echo $fileDestination;
+       
+       
+       if($fileDestination ===NULL){
+        $query = "INSERT into posts(title,content, topic, date,author) VALUES ('$postTitle','$content','$topic','$todays_date','$author')";
+
+       }
+       else {
+        $query = "INSERT into posts(title,content, topic, date,author,image_path) VALUES ('$postTitle','$content','$topic','$todays_date','$author','$fileDestination')";
+
+       }
+       
+        $conn = OpenCon();
+        if($conn->query($query)){
+            echo "<script type='text/javascript'>alert('success');</script>";
+
+        }
+        else {
+            echo ("Error: " .$conn->error);
+        }
+        CloseCon($conn);
 
     }
 
