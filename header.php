@@ -1,3 +1,33 @@
+<?php if (isset($_SESSION['login'])) : ?>
+	<header>
+	<a href="feed.php"><img id="logo" src="images/logo_text.PNG" /></a>
+	<div id="login">
+		<a href="logout.php">
+			<p>
+				Logout
+			</p>
+		</a>
+	</div>
+
+	<nav>
+		<ul class="navbar">
+			<a href="feed.php">
+				<li>
+					Chats
+				</li>
+			</a>
+			<a href="feed.php">
+				<li>
+					Advice
+				</li>
+			</a>
+		</ul>
+
+	</nav>
+</header>
+
+
+<?php else : ?>
 <header>
 	<a href="feed.php"><img id="logo" src="images/logo_text.PNG" /></a>
 	<div id="login">
@@ -29,3 +59,4 @@
 
 	</nav>
 </header>
+<?php endif; ?>

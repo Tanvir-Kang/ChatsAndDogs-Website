@@ -36,10 +36,10 @@
         $fileActualExt = strtolower(end($file_ext));
 
         $allowed = array('jpg','jpeg','png');
-
+        echo $username;
         $query = "SELECT * FROM users WHERE username='".$username."'";
         $result = $conn->query($query);
-        if (empty($result) && $result->num_rows == 0) {
+        if ($result->num_rows === 0) {
         if (in_array($fileActualExt, $allowed)){
             if($file_Error===0){
                 if ($file_Size < 10000000){

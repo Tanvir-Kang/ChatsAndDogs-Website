@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -19,6 +22,7 @@
 	<?php
 	include 'db_connection.php';
 	include 'header.php';
+	
 	?>
 
 	<form method="get" id="toprated" action="feed.php">

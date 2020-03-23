@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,7 +30,9 @@
         CloseCon($conn);
        
         if (!empty($result) && $result->num_rows > 0) {
-            echo "You have logged in";
+            $_SESSION['username'] = $username;
+            $_SESSION['password'] = $password;
+            $_SESSION['login'] = TRUE;
             echo "<script> window.location.assign('feed.php'); </script>";
             exit();
         }
@@ -77,7 +82,7 @@
             $mail->Password = '123456Cats!';
             $mail->SetFrom('catsdogs262@gmail.com');
             $mail->Subject= 'Your Chats and Dogs password';
-            $mail->Body = ''.$password;
+            $mail->Body = 'Hello, your chats and dogs password is the following: '.$password;
             $mail->AddAddress($email);
             $mail->Send();
         
