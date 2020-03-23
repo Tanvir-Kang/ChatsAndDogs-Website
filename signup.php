@@ -36,7 +36,7 @@
         $fileActualExt = strtolower(end($file_ext));
 
         $allowed = array('jpg','jpeg','png');
-        echo $username;
+        
         $query = "SELECT * FROM users WHERE username='".$username."'";
         $result = $conn->query($query);
         if ($result->num_rows === 0) {
@@ -61,7 +61,7 @@
                 }
             }
             else {
-                echo "<script type='text/javascript'>alert('Error uploaded picture');</script>";
+                echo "<script type='text/javascript'>alert('Error uploaded picture, must be a jpg, jpeg, or png');</script>";
             }
         }
         else {

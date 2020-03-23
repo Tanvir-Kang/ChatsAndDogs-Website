@@ -52,7 +52,7 @@ session_start();
 				<option value="mostRatings" <?php if ($sortMethod == "most-ratings") echo 'selected'; ?>>Most-Ratings</option>
 				<option value="hot">Hot</option>
 			</select>
-			<a href="createApost.html">
+			<a href="createAPost.php">
 				<div class="createPost">Create Post</div>
 			</a>
 			<div class="search"><img src="images/search.png"><input type="text" placeholder="Search" id="search" onkeyup="javascript:search()" /></div>
