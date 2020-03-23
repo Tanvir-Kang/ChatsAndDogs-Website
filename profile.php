@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['login'])) {  // Check if logged in
+	header("Location: login.php"); // If not logged in, redirect
+	exit();
+}
+session_abort();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -13,12 +21,14 @@
 	<?php
 	include 'db_connection.php';
 	include 'header.php';
-	if(!isset($_GET["username"])) // Check if user navigated through clicking a username
-		true;// TODO: $username =  Default to their own username (if logged in)
-	else
-		$username = $_GET["username"]; // Otherwise get username
+	$username = $_SESSION["username"]; // Display their own profile by default
+	$profileowner = true;
+	if (isset($_GET["username"])) { // Check if user navigated through clicking a username
+		$username = $_GET["username"]; // Display user that was navigated by
+		$profileowner = false;
+	}
 	$conn = OpenCon();
-	$query = 'SELECT first_name, last_name, age, sex, email, num_posts, COUNT(comment_id) as num_comments, num_pets, profile_image_path FROM users, comments WHERE username = "' . $username . '" AND author = "'.$username.'"';
+	$query = 'SELECT first_name, last_name, age, sex, email, num_posts, COUNT(comment_id) as num_comments, num_pets, profile_image_path FROM users, comments WHERE username = "' . $username . '" AND author = "' . $username . '"';
 	$result = $conn->query($query);
 	if ($result->num_rows > 0) {
 		// output data of each row
@@ -41,7 +51,7 @@
 	?>
 	<article class="main">
 		<div id="info">
-			<img id="ppicture" src="<?php echo $image_path;?>" alt="Profile Picture">
+			<img id="ppicture" src="<?php echo $image_path; ?>" alt="Profile Picture">
 			<br>
 			<p class="attribute">
 				<b>Name:</b> <?php echo $name; ?>
@@ -72,9 +82,13 @@
 			</p>
 		</div>
 		<div id="editPane">
-			<button type="button" id="edit">
-				Edit Profile
-			</button>
+			<?php
+			if ($profileowner == true)
+				echo '<button type="button" id="edit">
+					Edit Profile
+					</button>';
+			?>
+
 		</div>
 		<div id="content">
 			<h1 id="pHeading"><?php echo $username; ?></h1>

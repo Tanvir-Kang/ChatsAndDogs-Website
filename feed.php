@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html>
 
@@ -22,7 +19,7 @@ session_start();
 	<?php
 	include 'db_connection.php';
 	include 'header.php';
-	
+
 	?>
 
 	<form method="get" id="toprated" action="feed.php">
@@ -63,7 +60,7 @@ session_start();
 			<ul class="feedPosts">
 				<?php
 				$conn = OpenCon();
-				 // Default
+				// Default
 				//Switch for setting order by clause for sql query
 				$path = "";
 				switch ($sortMethod) {
@@ -117,7 +114,7 @@ session_start();
 								<div class="title">
 									<a href="./post.html">' . $row["title"] . '</a>
 								</div>
-								<div class="stars"><img src="'.$path.'">
+								<div class="stars"><img src="' . $path . '" class = "starsImg" >
 								</div>
 							</div>
 							<div class="byRow">

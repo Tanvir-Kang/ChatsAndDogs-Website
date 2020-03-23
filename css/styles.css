@@ -393,3 +393,7 @@ h2 {
 .warn {
     color: red;
 }
+
+.starsImg {
+    cursor: pointer;
+}
