@@ -35,7 +35,7 @@
 	</form>
 	<?php
 	if (!isset($_GET["orderBy"])) // Check if sorting method has been selected
-		$sortMethod = "top-rated"; // Default to toprated
+		$sortMethod = "newest"; // Default to newest
 	else
 		$sortMethod = $_GET["orderBy"]; // Otherwise get value
 	?>
@@ -59,7 +59,7 @@
 			<ul class="feedPosts">
 				<?php
 				$conn = OpenCon();
-				$clause = "ORDER BY avg_rating"; // Default
+				 // Default
 				//Switch for setting order by clause for sql query
 				$path = "";
 				switch ($sortMethod) {
@@ -75,6 +75,8 @@
 					case "most-ratings":
 						$clause = "ORDER BY posts.num_ratings DESC";
 						break;
+					default:
+						$clause = "ORDER BY posts.date DESC";
 				}
 				$query = "SELECT title, posts.num_ratings, posts.avg_rating, posts.date, posts.author, COUNT(comments.comment_id) as num_comments FROM posts LEFT OUTER JOIN comments ON posts.post_id = comments.post_id GROUP BY posts.post_id " . $clause;
 				$result = $conn->query($query);

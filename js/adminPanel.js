@@ -21,18 +21,37 @@ function search(method) { // Search function for adminpanel
 
 function conf(caller, id) {
     var element = $(caller);
-    var title = element.parent().parent().next().find(".searchTerm").text();
-    var del = confirm("Are you sure you would you like to delete \"" + title + "\"?");
-    if (del == true) {
-        $.post("adminPanel.php", {
-                postId: id,
-            },
-            function(content, status) {
-                if (status == "success") {
-                    alert("Success!");
-                    element.parent().parent().parent().parent().hide();
-                } else
-                    alert("Failed. Sorry.");
-            });
+    if (element.text() === "Remove") { // If post was selected for removal
+        var title = element.parent().parent().next().find(".searchTerm").text();
+        var del = confirm("Are you sure you would you like to delete \"" + title + "\"?");
+        if (del == true) {
+            $.post("adminPanel.php", {
+                    postId: id,
+                },
+                function(content, status) {
+                    if (status == "success") {
+                        alert("Success!");
+                        element.parent().parent().parent().parent().hide();
+                    } else
+                        alert("Failed. Sorry.");
+                });
+        }
+    } else if (element.text() === "Disable" || element.text() === "Enable") { // If user was selected for disabling
+        var del = confirm("Are you sure you would you like to disable \"" + id + "\"?");
+        if (del == true) {
+            $.post("adminPanel.php", {
+                    username: id,
+                },
+                function(content, status) {
+                    if (status == "success") {
+                        alert("Success!");
+                        if (element.text() === "Disable")
+                            element.text("Enable");
+                        else
+                            element.text("Disable");
+                    } else
+                        alert("Failed. Sorry.");
+                });
+        }
     }
 }
