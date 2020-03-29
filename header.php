@@ -1,6 +1,16 @@
 <?php
 session_start();
 ?>
+<!--Load swals and jquery
+	-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="js/sweetAlert/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+<script type="text/javascript">
+	window.jQuery ||
+		document.write('<script src="js/jquery-3.1.1.min.js"><\/script>');
+</script>
 <header>
 	<a href="feed.php"><img id="logo" src="images/logo_text.PNG" /></a>
 	<?php if (isset($_SESSION['login'])) : ?>

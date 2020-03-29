@@ -21,37 +21,70 @@ function search(method) { // Search function for adminpanel
 
 function conf(caller, id) {
     var element = $(caller);
+    var del = false;
     if (element.text() === "Remove") { // If post was selected for removal
         var title = element.parent().parent().next().find(".searchTerm").text();
-        var del = confirm("Are you sure you would you like to delete \"" + title + "\"?");
-        if (del == true) {
-            $.post("adminPanel.php", {
-                    postId: id,
-                },
-                function(content, status) {
-                    if (status == "success") {
-                        alert("Success!");
-                        element.parent().parent().parent().parent().hide();
-                    } else
-                        alert("Failed. Sorry.");
-                });
-        }
+        swalConfirm("Are you sure you would you like to delete \"" + title + "\"?", function(del) {
+            if (del == true) {
+                $.post("adminPanel.php", {
+                        postId: id,
+                    },
+                    function(content, status) {
+                        if (status == "success") {
+                            Swal.fire(
+                                'Success!',
+                                'The post has been deleted.',
+                                'success'
+                            )
+                            element.parent().parent().parent().parent().hide();
+                        } else
+                            Swal.fire(
+                                'Error',
+                                'Something went wrong!',
+                                'error'
+                            )
+                    });
+            }
+        });
     } else if (element.text() === "Disable" || element.text() === "Enable") { // If user was selected for disabling
-        var del = confirm("Are you sure you would you like to disable \"" + id + "\"?");
-        if (del == true) {
-            $.post("adminPanel.php", {
-                    username: id,
-                },
-                function(content, status) {
-                    if (status == "success") {
-                        alert("Success!");
-                        if (element.text() === "Disable")
-                            element.text("Enable");
-                        else
-                            element.text("Disable");
-                    } else
-                        alert("Failed. Sorry.");
-                });
-        }
+        var prevText = element.text();
+        var newText = "";
+        if (prevText === "Disable")
+            newText = "Enable";
+        else
+            newText = "Disable";
+        swalConfirm("Are you sure you would you like to " + prevText.toLowerCase() + " \"" + id + "\"?", function(del) {
+            if (del == true) {
+                $.post("adminPanel.php", {
+                        username: id,
+                    },
+                    function(content, status) {
+                        if (status == "success") {
+                            element.text(newText);
+                            Swal.fire(
+                                'Success!',
+                                'User has been ' + prevText.toLowerCase() + 'd.',
+                                'success'
+                            )
+                        } else
+                            alert("Failed. Sorry.");
+                    });
+            }
+        });
+
     }
+}
+
+function swalConfirm(text, callback) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: text,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!'
+    }).then((result) => {
+        callback(result.value);
+    })
 }
