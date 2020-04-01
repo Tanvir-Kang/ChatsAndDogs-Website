@@ -19,11 +19,10 @@
 
 .stars {
     height: 2em;
-    width: 2em;
+    width: 10em;
 }
 #starGroup{
     float: right;
-
 }
 .stars:hover {
     background-color: yellow;
@@ -83,11 +82,10 @@
 .reply .commentInfo{
     margin-left: 1em;
 }
-#star2 .stars{
-    height: 1em;
-    width: 1em;
+article {
+    margin-bottom: 0.5em;
 }
-#star3 .stars {
+.commentRating{
+    width: 3em;
     height: 1em;
-    width: 1em;
 }
