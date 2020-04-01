@@ -22,6 +22,7 @@
 
 	?>
 
+<!--This section is utilized in sorting of the posts. -->
 	<form method="get" id="toprated" action="feed.php">
 		<input type="hidden" name="orderBy" value="top-rated">
 	</form>
@@ -49,6 +50,7 @@
 				<option value="mostRatings" <?php if ($sortMethod == "most-ratings") echo 'selected'; ?>>Most-Ratings</option>
 				<option value="hot">Hot</option>
 			</select>
+			<!--End of section for sorting of the posts. -->
 			<a href="createAPost.php">
 				<div class="createPost">Create Post</div>
 			</a>
@@ -61,7 +63,7 @@
 				<?php
 				$conn = OpenCon();
 				// Default
-				//Switch for setting order by clause for sql query
+				//Switch for setting order for posts by clause for sql query
 				$path = "";
 				switch ($sortMethod) {
 					case "top-rated":
@@ -79,7 +81,7 @@
 					default:
 						$clause = "ORDER BY posts.date DESC";
 				}
-				$query = "SELECT title, posts.num_ratings, posts.avg_rating, posts.date, posts.author, COUNT(comments.comment_id) as num_comments FROM posts LEFT OUTER JOIN comments ON posts.post_id = comments.post_id GROUP BY posts.post_id " . $clause;
+				$query = "SELECT title, posts.post_id, posts.num_ratings, posts.avg_rating, posts.date, posts.author, COUNT(comments.comment_id) as num_comments FROM posts LEFT OUTER JOIN comments ON posts.post_id = comments.post_id GROUP BY posts.post_id " . $clause;
 				$result = $conn->query($query);
 				CloseCon($conn);
 				if ($result->num_rows > 0) {
@@ -107,22 +109,25 @@
 								break;
 							default:
 								$path = "images/star5.png";
-						}
+						} // Populate post feed
 
 						echo '<li class="post">
 							<div class="titleRow">
 								<div class="title">
-									<a href="./post.html">' . $row["title"] . '</a>
+									<form method="get" id="postLink' . $i . '" action="post.php">
+									<input type="hidden" name="postId" value="' . $row["post_id"] . '">
+									</form>
+									<a href="javascript:goToDestination(&quot;postLink' . $i . '&quot;)">' . $row["title"] . '</a>
 								</div>
 								<div class="stars"><img src="' . $path . '" class = "starsImg" >
 								</div>
 							</div>
 							<div class="byRow">
 								<div class="byLine">
-								<form method="get" id="authorProfileLink' . $i . '" action="profile.php">
-								<input type="hidden" name="username" value="' . $row["author"] . '">
-								</form>
-									Posted By: <a href="javascript:goToProfile(&quot;authorProfileLink' . $i . '&quot;)">' . $row["author"] . '</a> on ' . $row["date"] . ' | ' . $row["num_comments"] . ' comments
+									<form method="get" id="authorProfileLink' . $i . '" action="profile.php">
+									<input type="hidden" name="username" value="' . $row["author"] . '">
+									</form>
+									Posted By: <a href="javascript:goToDestination(&quot;authorProfileLink' . $i . '&quot;)">' . $row["author"] . '</a> on ' . $row["date"] . ' | ' . $row["num_comments"] . ' comments
 								</div>
 								<div class="ratingNum">
 									' . $row["num_ratings"] . ' ratings

@@ -26,7 +26,7 @@ $(document).ready(function() {
         })
 });
 
-function goToProfile(formId) {
+function goToDestination(formId) {
     document.getElementById(formId).submit();
 }
 
