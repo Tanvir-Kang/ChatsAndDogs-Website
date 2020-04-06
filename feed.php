@@ -51,9 +51,14 @@
 				<option value="hot">Hot</option>
 			</select>
 			<!--End of section for sorting of the posts. -->
+			<?php 
+			if (isset($_SESSION["login"]))
+				if($_SESSION["login"] == true):
+			?>
 			<a href="createAPost.php">
 				<div class="createPost">Create Post</div>
 			</a>
+				<?php endif; ?>
 			<div class="search"><img src="images/search.png"><input type="text" placeholder="Search" id="search" onkeyup="javascript:search()" /></div>
 			<h2 id="feedHeader">Feed</h2>
 
