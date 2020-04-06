@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['login'])) {  // Check if logged in
-	header("Location: login.php"); // If not logged in, redirect
+	header("Location: badNavigation.html"); // If not logged in, redirect
 	exit();
 }
 session_abort();
@@ -24,8 +24,11 @@ session_abort();
 	$username = $_SESSION["username"]; // Display their own profile by default
 	$profileowner = true;
 	if (isset($_GET["username"])) { // Check if user navigated through clicking a username
-		$username = $_GET["username"]; // Display user that was navigated by
-		$profileowner = false;
+		if($username != $_GET["username"]){ // Display user that was navigated by
+			$profileowner = false;
+			$username = $_GET["username"];
+		}
+		
 	}
 	$conn = OpenCon();
 	$query = 'SELECT first_name, last_name, age, sex, email, num_posts, COUNT(comment_id) as num_comments, num_pets, profile_image_path FROM users, comments WHERE username = "' . $username . '" AND author = "' . $username . '"';
@@ -45,8 +48,6 @@ session_abort();
 			$num_pets = $row["num_pets"];
 			$image_path = $row["profile_image_path"];
 		}
-	} else {
-		echo "0 results";
 	}
 	?>
 	<article class="main">
@@ -110,7 +111,7 @@ session_abort();
 							</li>';
 						}
 					} else {
-						echo "0 results";
+						echo '<div style="display:flex;justify-content:center;align-items:center;"><h2>Nothing to show!<h2></div>';
 					}
 					?>
 				</ul>
@@ -134,7 +135,7 @@ session_abort();
 							</li>';
 						}
 					} else {
-						echo "<h2>0 results<h2>"; // TODO: Make this look nicer
+						echo '<div style="display:flex;justify-content:center;align-items:center;"><h2>Nothing to show!<h2></div>'; // TODO: Make this look nicer
 					}
 					?>
 				</ul>
