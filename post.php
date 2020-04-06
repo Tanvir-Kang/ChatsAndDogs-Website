@@ -129,6 +129,7 @@
                         <a href='#'><p class='userName'>By:".$commentAuthor."</p></a>
                         <p>on: ".$commentDate."</p>
                         <img class='commentRating' src='".$path."'/>
+                        <p class='reply'>Reply<p>
                         </span>
                     </div>
                 </article>
