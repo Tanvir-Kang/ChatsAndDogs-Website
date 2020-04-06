@@ -46,7 +46,7 @@ session_abort();
 			$num_posts = $row["num_posts"];
 			$num_comments = $row["num_comments"];
 			$num_pets = $row["num_pets"];
-			$image_path = $row["profile_image_path"];
+			$image_path = $row["profile_image_path"]; 
 		}
 	}
 	?>
@@ -85,7 +85,7 @@ session_abort();
 		<div id="editPane">
 			<?php
 			if ($profileowner == true)
-				echo '<button type="button" id="edit">
+				echo '<button type="button" id="edit" onclick="location.href = \'editProfile.php\';">
 					Edit Profile
 					</button>';
 			?>
