@@ -53,24 +53,30 @@ function conf(caller, id) {
             newText = "Enable";
         else
             newText = "Disable";
-        swalConfirm("Are you sure you would you like to " + prevText.toLowerCase() + " \"" + id + "\"?", function(del) {
-            if (del == true) {
-                $.post("adminPanel.php", {
-                        username: id,
-                    },
-                    function(content, status) {
-                        if (status == "success") {
-                            element.text(newText);
-                            Swal.fire(
-                                'Success!',
-                                'User has been ' + prevText.toLowerCase() + 'd.',
-                                'success'
-                            )
-                        } else
-                            alert("Failed. Sorry.");
-                    });
-            }
-        });
+        swalConfirm("Are you sure you would you like to " + prevText.toLowerCase() + " \"" + id +
+            "\"?",
+            function(del) {
+                if (del == true) {
+                    $.post("adminPanel.php", {
+                            username: id,
+                        },
+                        function(content, status) {
+                            if (status == "success") {
+                                element.text(newText);
+                                Swal.fire(
+                                    'Success!',
+                                    'User has been ' + prevText.toLowerCase() + 'd.',
+                                    'success'
+                                )
+                            } else
+                                Swal.fire(
+                                    'Error',
+                                    'Something went wrong!',
+                                    'error'
+                                )
+                        });
+                }
+            });
 
     }
 }

@@ -155,7 +155,7 @@ h2 {
     background-color: #C6D4FF;
     border: solid #61AEF0;
     border-radius: 5px;
-    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .post {

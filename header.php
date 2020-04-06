@@ -26,7 +26,8 @@ session_start();
 				</p>
 			</a>
 		</div>
-	<?php else : ?>
+	<?php echo '<div align = "right" style= "padding-right: 4em;color: #61AEF0;margin-bottom: 0.5em">Logged in as: ' . $_SESSION["username"] . '</div>';
+	else : ?>
 		<div id="login">
 			<a href="login.php">
 				<p>
@@ -42,17 +43,21 @@ session_start();
 	<?php endif; ?>
 	<nav>
 		<ul class="navbar">
-			<a href="feed.php">
+			<a href="javascript:topicSelect('all')">
+				<li>
+					All Posts
+				</li>
+			</a>
+			<a href="javascript:topicSelect('chats')">
 				<li>
 					Chats
 				</li>
 			</a>
-			<a href="feed.php">
+			<a href="javascript:topicSelect('dogs')">
 				<li>
 					Advice
 				</li>
 			</a>
 		</ul>
-
 	</nav>
 </header>
