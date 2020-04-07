@@ -27,9 +27,15 @@
         CloseCon($conn);
        
         if (!empty($result) && $result->num_rows > 0) {
+           $row = $result->fetch_assoc() ;
+           $admin = $row['admin'];
+
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
             $_SESSION['login'] = TRUE;
+            if ($admin==1){
+                $_SESSION['admin'] = TRUE;
+            }
             echo "<script> window.location.assign('feed.php'); </script>";
             exit();
         }
