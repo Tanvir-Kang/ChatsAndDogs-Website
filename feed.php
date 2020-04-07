@@ -19,7 +19,20 @@
 	<?php
 	include 'db_connection.php';
 	include 'header.php';
-
+	if (isset($_POST["rating"])) { // Check if the user attempted to rate a post
+		echo "<script> ratingFailed(); </script>";
+		if (isset($_SESSION["login"])) { // If user is logged in
+			$rating = $_POST["rating"];
+			$postId = $_POST["postId"];
+			$username = $_SESSION["username"];
+			$conn = OpenCon();
+			$query = 'SELECT FROM ratings WHERE ratings.user = "' . $username . '" AND ratings.postId = ' . $postId;
+			$result = $conn->query($query);
+			$query = "REPLACE ratings (post_id, user, rating) VALUES (" . $postId . ", '" . $username . "', " . $rating . ")";
+			$conn->query($query); // Insert/replace rating
+			CloseCon($conn);
+		}
+	}
 	?>
 
 	<!--This section is utilized in sorting of the posts. -->
@@ -43,26 +56,6 @@
 		$sortMethod = "newest"; // Default to newest
 	else
 		$sortMethod = $_GET["orderBy"]; // Otherwise get value
-	if (isset($_POST["rating"])) { // Check if the user attempted to rate a post
-		echo "<script> ratingFailed(); </script>";
-		if (isset($_SESSION["login"])) { // If user is logged in
-			$rating = $_POST["rating"];
-			$postId = $_POST["postId"];
-			$username = $_SESSION["username"];
-			$conn = OpenCon();
-			$query = 'SELECT FROM ratings WHERE ratings.user = ' . $username . ' AND ratings.postId = ' . $postId;
-			$result = $conn->query($query);
-			if ($result->num_rows > 0) // If result is not empty
-				echo "<script> ratingFailed(); </script>"; // User has already rated the post
-			else {
-				$query = "INSERT INTO ratings (post_id, user, rating) VALUES (" . $postId . ", " . $username . ", " . $rating . ")";
-				$conn->query($query); // Insert rating
-				echo "<script> ratingSucceed(); </script>";
-			}
-
-			CloseCon($conn);
-		}
-	}
 	?>
 
 	<article class="main">
@@ -72,7 +65,7 @@
 				<option value="newest" <?php if ($sortMethod == "newest") echo 'selected'; ?>>Newest</option>
 				<option value="oldest" <?php if ($sortMethod == "oldest") echo 'selected'; ?>>Oldest</option>
 				<option value="mostRatings" <?php if ($sortMethod == "most-ratings") echo 'selected'; ?>>Most-Ratings</option>
-				<option value="hot"<?php if ($sortMethod == "hot") echo 'selected'; ?>>Hot</option>
+				<option value="hot" <?php if ($sortMethod == "hot") echo 'selected'; ?>>Hot</option>
 			</select>
 			<!--End of section for sorting of the posts. -->
 			<?php
@@ -139,7 +132,7 @@
 							default:
 								$path = "images/star5.png";
 						} // Populate post feed
-						$topic = "";
+						$topic = "None";
 						if ($row["topic"] == "chats")
 							$topic = "Chats";
 						else if ($row["topic"] == "dogs")
@@ -153,7 +146,7 @@
 									</form>
 									<a href="javascript:goToDestination(&quot;postLink' . $i . '&quot;)">' . $row["title"] . '</a>
 								</div>
-								<div class="stars"><img src="' . $path . '" class = "starsImg" id = "' . $row["post_id"] . '">
+								<div class="stars"><img src="' . $path . '" class = "starsImg" id = "' . $row["post_id"] . '" onclick = "javascript:setRating(&quot;' . $row["post_id"] . '&quot;);">
 								</div>
 							</div>
 							<div class="byRow">

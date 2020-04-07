@@ -1,3 +1,16 @@
+<?php
+session_start();
+if (isset($_SESSION['admin'])) {  // Check if admin and redirect if not
+	if ($_SESSION["admin"] == false) {
+		header("Location: badNavigation.html");
+		exit();
+	}
+} else {
+	header("Location: badNavigation.html");
+	exit();
+}
+session_abort();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -54,13 +67,13 @@
 						$num_pets = $row["num_pets"];
 						$image_path = $row["profile_image_path"];
 						$toggle = "Enable";
-						if($row["enabled"] == 1)
+						if ($row["enabled"] == 1)
 							$toggle = "Disable";
 						echo '					<div class="userEntry">
 							<li class="user">
 								<div class="details">
 									<div class="disableUser">
-										<a href = "javascript:;" onclick = "javascript:conf(this, &quot;' . $username . '&quot;);">'.$toggle.'</a>
+										<a href = "javascript:;" onclick = "javascript:conf(this, &quot;' . $username . '&quot;);">' . $toggle . '</a>
 									</div>
 	
 									<b>Name:</b> <span class = "searchTerm">' . $name . '</span>

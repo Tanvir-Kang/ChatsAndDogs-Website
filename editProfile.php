@@ -25,16 +25,21 @@ session_abort();
     if (isset($_POST["fname"])) { // Check if save button was clicked
         $newFname = $_POST["fname"];
         $newLname = $_POST["lname"];
-        if(strtolower($_POST["sex"]) == "Male")
+        if(strtolower($_POST["sex"]) == "male")
             $newSex = "M";
         else
             $newSex = "F";
         $newEmail = $_POST["email"];
         $newNumPets = $_POST["numPets"];
         $conn = OpenCon();
-        $query = 'UPDATE users SET first_name = '. $newFname.', last_name = '.$newLname.', sex = '.$newSex.', email = '.$newEmail.', num_pets = '.$newNumPets.' WHERE username = "' . $username . '"';
+        $query = 'UPDATE users SET first_name = "'. $newFname.'", last_name = "'.$newLname.'", sex = "'.$newSex.'", email = "'.$newEmail.'", num_pets = '.$newNumPets.' WHERE username = "' . $username . '"';
         $conn->query($query); // Update database
         CloseCon($conn);
+        echo "<script>    Swal.fire(
+            'Success!',
+            'Your profile has been edited.',
+            'success'
+        );</script>";
     }
     
     $conn = OpenCon();
