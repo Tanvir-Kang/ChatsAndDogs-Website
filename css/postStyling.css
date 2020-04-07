@@ -52,7 +52,7 @@
     padding: 2em;
 }
 #commentSection h2{
-    margin-bottom: 1.5em;
+    margin-bottom: 0.5em;
     font-size: x-large;
     border-bottom: 1pt solid black;
 }
@@ -88,4 +88,38 @@ article {
 .commentRating{
     width: 3em;
     height: 1em;
+}
+#commentForm {
+    width: 100%;
+    display: flex;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    height: 3em;
+    
+}
+#commentForm textarea {
+    align-content: center;
+    width: 50%;
+    background: white;
+    border: 2px solid #237BA0;
+    border-radius: 1.5em;
+    padding: 1em;
+    color: black;
+    outline: none;
+}
+#commentForm input[type="submit"] {
+    border: 2px solid #237BA0;
+    border-radius: 1.5em;
+    background: black;
+    color: white;
+    padding: 1em 3em;
+    outline: none;
+    
+}
+#commentLabel {
+    color: white;
+    vertical-align: auto;
+ float: left;
+ margin-top: 0.5em;
+ margin-right: 1em;
 }

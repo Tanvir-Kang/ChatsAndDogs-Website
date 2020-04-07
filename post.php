@@ -4,7 +4,9 @@
         <title>Lorem Ipsum</title>
         <link rel="stylesheet" href="css/reset.css">
         <link rel="stylesheet" href="css/templateStyling.css">
-        <link rel="stylesheet" href="css/postStyling.css">
+        <link rel="stylesheet" href="css/postStyling.css"> <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript"> window.jQuery || document.write('<script src="js/jquery-3.1.1.min.js"><\/script>'); </script>
+        <script src="js/commentReply.js"></script>
         <meta name="viewport" content="width=device-width; initial-scale=1.0">
         
     </head>
@@ -15,7 +17,11 @@
 	include 'header.php';
     
     $conn = OpenCon();
-    $postid = 2;
+    
+    if(isset($_GET["postId"])){
+        $postid = $_GET["postId"];
+       
+    }
     $query = "SELECT * FROM posts WHERE post_id = '$postid'";
     $result = $conn->query($query);
 
@@ -83,9 +89,37 @@
                 <?php echo "<p id='postText'>".$content."</p>"; ?>
 
             </div>
-
-            <div id="commentSection">
-                <h2>Comment Section</h2>
+        <?php
+        if(isset($_SESSION['username'])){
+            echo "<div id='commentSection'>
+            <h2>Comment Section</h2>
+            <form id='commentForm' action='#' method='POST' >
+            <label id='commentLabel'>Leave a comment below: </label>
+            <textarea name='comment' id='commentBox'></textarea>
+            <input type='submit' id='submitComment' name='submitButton'/>
+            </form>";
+         
+        } 
+        ?>
+                <?php
+                if(isset($_POST['submitButton'])){
+                    $conn = OpenCon();
+                       $username = $_SESSION['username'];
+                       $commentSubmisssion = $_POST['comment'];
+                       $dateTime = date('Y-m-d h:i:s a',time());
+                       $postId = $_GET['postId'];
+                       $query = "INSERT INTO comments(post_id, content, date, author) VALUES ('$postId','$commentSubmisssion','$dateTime','$username')";
+                       if($conn->query($query)){
+                        
+            
+                    }
+                    else {
+                        echo ("Error: " .$conn->error);
+                    }
+                        CloseCon($conn);
+                }
+                
+                ?>
                 <?php 
                 $conn = OpenCon();
                 $query = "SELECT * FROM comments WHERE post_id ='$postid'";
@@ -94,59 +128,56 @@
 				if ($result->num_rows > 0) {
 					$i = 0;
 					while ($row = $result->fetch_assoc()) {
+                        $i++;
                         $commentContent = $row["content"];
                         $commentDate = $row["date"];
                         $commentAuthor = $row["author"];
-                        $commentRating = $row["avg_rating"];
+                        $commentId = $row["comment_id"];
+                        $commentParent = $row["parentId"];
 
-                        switch ($row["avg_rating"]) {
-                            case 0:
-                                $path = "images/star0.png";
-                                break;
-                            case 1:
-                                $path = "images/star1.png";
-                                break;
-                            case 2:
-                                $path = "images/star2.png";
-                                break;
-                            case 3:
-                                $path = "images/star3.png";
-                                break;
-                            case 4:
-                                $path = "images/star4.png";
-                                break;
-                            case 5:
-                                $path = "images/star5.png";
-                                break;
-                            default:
-                                $path = "images/star5.png";
+                        if ($commentParent==0){
+                            echo "<article id=".$commentId." >
+                            <p class='comment'>".$commentContent."</p>
+                            <div class='commentInfo'>
+                                <span class='commentSpan'>
+                                <a href='#'><p class='userName'>By:".$commentAuthor."</p></a>
+                                <p>on: ".$commentDate."</p>
+                               <p class='reply' onClick='reply_click(this.id)' id=".$commentId.">Reply</p>
+                                </span>
+                            </div>
+                        </article>";
+                        }
+                        else {
+                            echo "<script type='text/javascript'> jsfunction('$commentParent','$commentContent','$commentDate','$commentAuthor');</script>";
+                         
+                           
                         }
 
-                    echo "<article>
-                    <p class='comment'>".$commentContent."</p>
-                    <div class='commentInfo'>
-                        <span class='commentSpan'>
-                        <a href='#'><p class='userName'>By:".$commentAuthor."</p></a>
-                        <p>on: ".$commentDate."</p>
-                        <img class='commentRating' src='".$path."'/>
-                        <p class='reply'>Reply<p>
-                        </span>
-                    </div>
-                </article>
-                        ";
+                   
                     }
                 }
                 ?>
-                
+                <?php
+                if (isset($_POST["submitReply"])){
+                    $dateTime = date('Y-m-d h:i:s a',time());
+                    $username = $_SESSION['username'];
+                    $replyContent = $_POST["reply"];
+                    $parentId = $_POST["parentId"];
+                    $postId=$_GET["postId"]; 
+                    $conn = OpenCon();
+                    $query = "INSERT INTO comments(post_id, content, date, author,parentId) VALUES ('$postId','$replyContent','$dateTime','$username','$parentId')";
+                    if($conn->query($query)){
 
-                <article class="reply">
-                <p class="subComment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis, nulla congue auctor ullamcorper, ante mauris pharetra tortor, ut viverra tellus mi vitae ipsum. Mauris</p>
-                <div class="commentInfo">
-                    <a href="#"><p class="userName">By: Zeebra</p></a>
-                    <p>on: 2020-02-17</p>
-                    
-                </div>
-                </article>
+                    }
+                    else {
+                        echo ("Error: " .$conn->error);
+                    }
+                        CloseCon($conn);
+
+                }
+                ?>
+
+               
                
             </div>
 
