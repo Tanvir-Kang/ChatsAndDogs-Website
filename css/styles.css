@@ -397,3 +397,8 @@ h2 {
 .starsImg {
     cursor: pointer;
 }
+
+.editForm {
+    display: block;
+    padding-top: 1em;
+}
