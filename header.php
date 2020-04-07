@@ -11,6 +11,23 @@ session_start();
 	window.jQuery ||
 		document.write('<script src="js/jquery-3.1.1.min.js"><\/script>');
 </script>
+<script>
+	function topicSelect(topic) { // Function to determine which topics to display based on user feedback, using GET
+		var posts = $(".post"); // All posts on page
+		var pathname = $(location).attr('pathname').split("/");
+		if (pathname[pathname.length-1] != "feed.php") // If user isn't at the feed
+			window.location.href = "feed.php"; // Go to feed
+		posts.each(function() {
+			if (topic == "all")
+				$(this).show(); // Show all elements
+			else if ($(this).attr("id") == topic) // post topic equals user-defined topic
+				$(this).show(); // show matching elements
+			else
+				$(this).hide(); // Hide non-matching elements
+				
+		});
+	}
+</script>
 <header>
 	<a href="feed.php"><img id="logo" src="images/logo_text.PNG" /></a>
 	<?php if (isset($_SESSION['login'])) : ?>
@@ -58,6 +75,16 @@ session_start();
 					Advice
 				</li>
 			</a>
+			<?php
+			if (isset($_SESSION["admin"]))
+				if($_SESSION["admin"] == true)
+					echo '
+						<a href="adminPanel.php">
+							<li>
+								Admin Panel
+							</li>
+						</a>'
+			?>
 		</ul>
 	</nav>
 </header>
