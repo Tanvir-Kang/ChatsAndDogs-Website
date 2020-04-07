@@ -127,7 +127,7 @@
             <input type="reset" value="Clear">
             </div>  
             <div id="links">
-               <a href="login.html"><p>Already have an account? sign in here</p></a> 
+               <a href="login.php"><p>Already have an account? sign in here</p></a> 
             </div>
 
         </form>
