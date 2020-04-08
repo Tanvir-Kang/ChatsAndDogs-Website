@@ -1,5 +1,5 @@
 
-   
+
     function reply_click(comment_id){
         $("#"+ comment_id).append("<form id='commentForm' action='#' method='POST' >\
         <label id='commentLabel'>Reply: </label>\
@@ -9,7 +9,8 @@
         </form>");
      
     }
-    function   jsfunction(commentParent,commentContent,commentDate,commentAuthor){
+    function jsfunction(commentParent,commentContent,commentDate,commentAuthor){
+        
        $("#"+ commentParent).append( "<article class='reply'>\
        <p class='subComment'>"+ commentContent+"</p>\
        <div class='commentInfo'>\
@@ -20,5 +21,5 @@
        </article>");
     }
     
-    
+
     
