@@ -80,24 +80,22 @@
             <form method="POST" action="createAPost.php" class="holder" enctype="multipart/form-data">
                 <h1>Create a post</h1>
                 <div id="chats">
-                <label>Chat:</label>
+                <label>Topic:</label>
                 <select name="chat" >
-                    <option selected>Dogs</option>
-                    <option>Cats</option>
-                    <option>Subarus</option>
-                    <option>Off-topic</option>
+                    <option selected>Advice</option>
+                    <option>Chats</option>
                 </select>
                 </div>
                 <input type="text" required name="title" placeholder="Enter title">
                 <textarea required name="description" rows="3" cols="50" placeholder="Enter post description"></textarea>
                 <input type="text" name="link" placeholder="(optional) Enter a link">
                 <div id="image">
-                    <label>(Optional, upload an image)</label>
+                    <label>(Optional)</label>
                     <input type="file" id="img" name="pic" accept="image/*">
                 </div> 
                 <div id="buttons">
                     <input type="submit" name="submit" value="Submit Post">
-                    <input type="reset" value="clear all">  
+                    <input type="reset" value="Clear All">  
                 </div>
             </form>
         </div>

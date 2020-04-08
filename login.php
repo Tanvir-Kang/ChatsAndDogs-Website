@@ -55,8 +55,8 @@
             <input type="submit" value="Login">
 
             <div id="links">
-                <a href="#" id ="forgotPassword" ><p>Forgot Password?</p></a>
-                <a href="signup.php"><p>Don't have an account? Sign up now</p></a>
+                <a href="#" id ="forgotPassword" ><p class="hover">Forgot Password?</p></a>
+                <a href="signup.php"><p class="hover">Don't have an account? Sign up now</p></a>
             </div>
 
         </form>

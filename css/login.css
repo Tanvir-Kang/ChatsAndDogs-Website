@@ -60,3 +60,7 @@ body {
 #link a:hover {
     color: lawngreen;
 }
+.hover:hover {
+    color: #237BA0;
+
+}

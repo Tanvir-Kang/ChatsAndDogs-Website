@@ -106,7 +106,7 @@
             <input type="text" required name="lastName" placeholder="Last name">
             <input type="text" required name="userName" placeholder="Username" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$">
             <input type="email" required name="email" placeholder="Email">
-            <label>Password must contain a number, letters and a special character</label>
+            <label>Password must contain a number, capital letter, letter and a special character</label>
             <input type="password" required name="password" placeholder="Pick a password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
             <label>Enter your birthdate:</label><input required type="date" name="birthdate">
             <div id="gender">
