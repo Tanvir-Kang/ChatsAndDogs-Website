@@ -149,7 +149,10 @@ session_abort();
 												<br>
 												<br>
 												<a href = "javascript:;" onclick = "javascript:conf(this, &quot;' . $row["post_id"] . '&quot;);">Remove</a>
-												<a href="#">Edit</a>
+												<a href="javascript:;" onclick = "javascript:editPost(&quot;editPost' . $row["post_id"] . '&quot;);">Edit</a>
+												<form method="get" id="editPost' . $row["post_id"] . '" action="createAPost.php">
+													<input type="hidden" name="postId" value="' . $row["post_id"] . '">
+												</form>
 											</div> <b>Posted By:</b> <span class ="searchTerm">' . $row["author"] . '</span>
 											<br>
 											<b>Date:</b> ' . $row["date"] . '

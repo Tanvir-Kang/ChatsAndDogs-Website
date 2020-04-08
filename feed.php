@@ -33,6 +33,16 @@
 			CloseCon($conn);
 		}
 	}
+
+	if(isset($_SESSION["postSuccess"])) // Check if user has just successfully posted
+		if($_SESSION["postSuccess"] == true){ // Show an alert if so.
+			echo "<script>Swal.fire(
+                'Success!',
+                'Your post has been submitted!',
+                'success'
+			);</script>";
+			$_SESSION["postSuccess"] = false;
+		}
 	?>
 
 	<!--This section is utilized in sorting of the posts. -->
@@ -142,7 +152,7 @@
 							<div class="titleRow">
 								<div class="title">
 									<form method="get" id="postLink' . $i . '" action="post.php">
-									<input type="hidden" name="postId" value="' . $row["post_id"] . '">
+										<input type="hidden" name="postId" value="' . $row["post_id"] . '">
 									</form>
 									<a href="javascript:goToDestination(&quot;postLink' . $i . '&quot;)">' . $row["title"] . '</a>
 								</div>

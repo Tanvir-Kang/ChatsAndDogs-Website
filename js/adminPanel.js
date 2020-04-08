@@ -81,7 +81,7 @@ function conf(caller, id) {
     }
 }
 
-function swalConfirm(text, callback) {
+function swalConfirm(text, callback) { // A simple confirmation box
     Swal.fire({
         title: 'Are you sure?',
         text: text,
@@ -93,4 +93,8 @@ function swalConfirm(text, callback) {
     }).then((result) => {
         callback(result.value);
     })
+}
+
+function editPost(formId) { // Submit form for admin to edit selected post
+    document.getElementById(formId).submit();
 }
