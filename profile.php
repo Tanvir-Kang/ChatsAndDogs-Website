@@ -107,7 +107,7 @@ session_abort();
 								$content = $content . "...";
 							echo '<li class="commentItem">
 							<a href="#"><p class="commentText">' . $content . '
-							</p></a><img src="images/star2.png" class="postStars">
+							</p></a>
 							</li>';
 						}
 					} else {
@@ -120,18 +120,40 @@ session_abort();
 			<div class="posts">
 				<ul class="postLog">
 					<?php
-					$query = 'SELECT title FROM posts WHERE author = "' . $username . '"';
+					$query = 'SELECT title, avg_rating FROM posts WHERE author = "' . $username . '"';
 					$result = $conn->query($query);
 					CloseCon($conn);
 					if ($result->num_rows > 0) {
 						// output data of each row
 						while ($row = $result->fetch_assoc()) {
+							switch ($row["avg_rating"]) { // determine star image
+								case 0:
+									$path = "images/star0.png";
+									break;
+								case 1:
+									$path = "images/star1.png";
+									break;
+								case 2:
+									$path = "images/star2.png";
+									break;
+								case 3:
+									$path = "images/star3.png";
+									break;
+								case 4:
+									$path = "images/star4.png";
+									break;
+								case 5:
+									$path = "images/star5.png";
+									break;
+								default:
+									$path = "images/star5.png";
+							}
 							$title = substr($row["title"], 0, 36);
 							if (strlen($row["title"]) > 33)
 								$title = $title . "...";
 							echo '<li class="postItem">
 							<a href="#"><p class="postText">' . $title . '
-							</p></a><img src="images/star2.png" class="postStars">
+							</p></a><img src="' . $path . '" class="postStars">
 							</li>';
 						}
 					} else {
