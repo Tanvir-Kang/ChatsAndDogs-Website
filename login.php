@@ -17,6 +17,7 @@
     ?>
     <?php
     $conn = OpenCon();
+    //if the username is set on button click
     if(isset($_POST['username'])){
        $username = $_POST['username'];
        $password = $_POST['password'];
@@ -25,11 +26,11 @@
       
         $result = $conn->query($query);
         CloseCon($conn);
-       
+       //if there is an account with the specified username and password
         if (!empty($result) && $result->num_rows > 0) {
            $row = $result->fetch_assoc() ;
            $admin = $row['admin'];
-
+            //check if user is admin or not and then set the session variables to their username, password and admin status
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
             $_SESSION['login'] = TRUE;
@@ -62,9 +63,11 @@
         </form>
 
     <?php
+    //if the user clicks on recover passoword
     if(isset($_POST['recoverButton'])){
     $username = $_POST['uname'];
-
+        //the javascipt function will then be called and the HTML is modified with a username form
+        //onclick of recovery button, using PHP mailer perform a query to see if the username exists
     $conn = OpenCon();
     $query = "SELECT email,password FROM users WHERE username='".$username."'";
     $result = $conn->query($query);
@@ -81,8 +84,8 @@
             $mail->Host = 'smtp.gmail.com';
             $mail->Port = '465';
             $mail->isHTML();
-            $mail->Username = 'catsdogs262@gmail.com';
-            $mail->Password = '123456Cats!';
+            $mail->Username = 'catsdogs262@gmail.com';//our fake email accout
+            $mail->Password = '123456Cats!';//password
             $mail->SetFrom('catsdogs262@gmail.com');
             $mail->Subject= 'Your Chats and Dogs password';
             $mail->Body = 'Hello, your chats and dogs password is the following: '.$password;

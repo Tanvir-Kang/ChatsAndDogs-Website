@@ -1,4 +1,5 @@
 <?php 
+//on log out unset all session variables and then let user know that they have been logged out
 session_start();
 session_unset();
 session_destroy();

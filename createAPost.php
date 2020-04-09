@@ -61,7 +61,7 @@ session_abort();
         $file = $_FILES['pic']['tmp_name'];
         $fileDestination = NULL;
         $content = $description . " " . $link;
-
+//if there is a file uploaded
         if (is_uploaded_file($file)) {
 
             $allowed = array('jpg', 'jpeg', 'png');
@@ -72,8 +72,11 @@ session_abort();
             $file_Type = $_FILES['pic']['type'];
             $file_ext = explode('.', $file_Name);
             $fileActualExt = strtolower(end($file_ext));
+        //if the file uploaded is part of the allowed types
             if (in_array($fileActualExt, $allowed)) {
+                //if there is no error when uploading
                 if ($file_Error === 0) {
+                        //if the file size is reasonable 
                     if ($file_Size < 10000000) {
                         $file_New_Name = uniqid('', true) . "." . $fileActualExt;
                         $fileDestination = 'images/post_pictures/' . $file_New_Name;

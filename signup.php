@@ -12,6 +12,7 @@
 	include 'db_connection.php';
     include 'header.php';
     $conn = OpenCon();
+    //on submit click gather all info from the posts, HTML ensures required forms are not blank
     if(isset($_POST['submit'])){
         $firstName = $_POST['firstName'];
         $lastName = $_POST['lastName'];
@@ -20,7 +21,7 @@
         $password = $_POST['password'];
         $birthday = $_POST['birthdate'];
         $gender = $_POST['gender'];
-       
+       //find the age
         $todays_date = date("Y-m-d");
         $diffrence = date_diff(date_create($birthday),date_create($todays_date));
         $age = $diffrence->format('%y');
@@ -36,17 +37,24 @@
         $fileActualExt = strtolower(end($file_ext));
 
         $allowed = array('jpg','jpeg','png');
-        
+        //perform a query to check if the username does not already exist
         $query = "SELECT * FROM users WHERE username='".$username."'";
         $result = $conn->query($query);
+        //if uname does not exist
         if ($result->num_rows === 0) {
+            //and if picture is jpg,jpeg or png
         if (in_array($fileActualExt, $allowed)){
+            //no error in uploaded
             if($file_Error===0){
+                //and size is reasonable
                 if ($file_Size < 10000000){
+                    //assisgn a unique name and set it in the directory for storage
                     $file_New_Name = uniqid('',true).".".$fileActualExt;
                     $fileDestination = 'images/profile_pictures/'.$file_New_Name;
                     move_uploaded_file($file_Temp_Name,$fileDestination);
+                    //upload the data
                     $query = "INSERT into users(username, first_name, last_name, age, sex, email, profile_image_path, password) VALUES ('$username','$firstName','$lastName','$age','$gender','$email','$fileDestination','$password')";
+                    //if no error in uploading
                     if($conn->query($query)){
                     echo '<script>alert("success..Press okay to continue")</script>';
                     header("Location: login.php?uploadsuccess");
@@ -64,6 +72,7 @@
                 echo "<script type='text/javascript'>alert('Error uploaded picture, must be a jpg, jpeg, or png');</script>";
             }
         }
+        //logic for default photo
         else {
             if ($gender=='Male'){
             $defaultImage = 'images/profile_picture/img_avatar.png';

@@ -17,11 +17,17 @@
 	include 'header.php';
     
     $conn = OpenCon();
-    
+    //the feed.php page sends over the postID of the clicked post
     if(isset($_GET["postId"])){
         $postid = $_GET["postId"];
        
     }
+    //if there is an error some how renavigate to badNav page
+    else {
+        header("Location: badNavigation.html");
+        exit();
+    }
+    //collect all the details required for the post
     $query = "SELECT * FROM posts WHERE post_id = '$postid'";
     $result = $conn->query($query);
 
@@ -62,7 +68,7 @@
     CloseCon($conn);
 
     ?>
-      
+    <!-- using the php var, and without changing structure of the HTML just inject the information needed to populate posts -->
     
         <div id="main">
 
@@ -90,6 +96,7 @@
 
             </div>
         <?php
+        //if the user is logged in, then the comment box will appear, otherwise it wont appear
         if(isset($_SESSION['username'])){
             echo "<div id='commentSection'>
             <h2>Comment Section</h2>
@@ -108,6 +115,7 @@
                        $commentSubmisssion = $_POST['comment'];
                        $dateTime = date('Y-m-d h:i:s a',time());
                        $postId = $_GET['postId'];
+                       if(!empty($commentSubmisssion)){
                        $query = "INSERT INTO comments(post_id, content, date, author) VALUES ('$postId','$commentSubmisssion','$dateTime','$username')";
                        if($conn->query($query)){
                         
@@ -116,11 +124,13 @@
                     else {
                         echo ("Error: " .$conn->error);
                     }
+                }
                         CloseCon($conn);
                 }
                 
                 ?>
                 <?php 
+                //grab all the comments
                 $conn = OpenCon();
                 $query = "SELECT * FROM comments WHERE post_id ='$postid'";
                 $result = $conn->query($query);
@@ -134,7 +144,7 @@
                         $commentAuthor = $row["author"];
                         $commentId = $row["comment_id"];
                         $commentParent = $row["parentId"];
-
+                        //if they are a parent comment just post them like below
                         if ($commentParent==0){
                             echo "<article id=".$commentId." >
                             <p class='comment'>".$commentContent."</p>
@@ -147,6 +157,7 @@
                             </div>
                         </article>";
                         }
+                        //else if they are a reply comment, use the JS function to append it to the parent comment that they replied to
                         else {
                             echo "<script type='text/javascript'> jsfunction('$commentParent','$commentContent','$commentDate','$commentAuthor');</script>";
                          
@@ -158,6 +169,7 @@
                 }
                 ?>
                 <?php
+                //once they click submit reply, add their comment into the database
                 if (isset($_POST["submitReply"])){
                     $dateTime = date('Y-m-d h:i:s a',time());
                     $username = $_SESSION['username'];
@@ -165,6 +177,9 @@
                     $parentId = $_POST["parentId"];
                     $postId=$_GET["postId"]; 
                     $conn = OpenCon();
+                    if(!empty($replyContent)){
+
+                    
                     $query = "INSERT INTO comments(post_id, content, date, author,parentId) VALUES ('$postId','$replyContent','$dateTime','$username','$parentId')";
                     if($conn->query($query)){
 
@@ -173,7 +188,7 @@
                         echo ("Error: " .$conn->error);
                     }
                         CloseCon($conn);
-
+                }
                 }
                 ?>
 
